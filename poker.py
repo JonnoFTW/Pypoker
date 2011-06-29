@@ -84,14 +84,26 @@ def winner(p1,p2):
     else: return 2
 
 scores = dict()
-for i in range(100000):
+while True:
     cards = [i+j for i in "23456789TJQK" for j in "SCHD"]
     random.shuffle(cards)
     h1 = []
     for i in range(5):
         h1.append(cards.pop())
-   # print h1
+    print h1
     p1 = Hand(h1)
+    print p1.rank()[2]
+    out = raw_input('Which cards to swap? ')
+    for i in out.split():
+        i = int(i)
+        try:
+            cards.insert(0,h1.pop(i))
+            h1.insert(i,cards.pop())
+        except:
+            print 'Can\'t remove card from'
+    p1 = Hand(h1)
+    print h1
+    print p1.rank()[2]
     try:
         scores[p1.rank()[2]] +=1
     except KeyError:
